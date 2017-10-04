@@ -35,8 +35,8 @@ func main(){
 
 	for false{//(conMin/conMax) < 0.99{
 		time = time + tStep
-		step(room [:][:][:]);
-		//step(test[:])
+		//step(room [:][:][:]);
+		step(test[:])
 	}
 
 
@@ -44,7 +44,7 @@ func main(){
 
 }
 
-func step(alt [][][]float32){
+func step(alt []float32){
 
 	const N int = 10
 
