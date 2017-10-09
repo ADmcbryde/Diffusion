@@ -3,6 +3,8 @@
 
 double mTotal, time, mSpeed, D, rSize, rDiv, tStep, hval, conMax, conMin;
 
+#define N 10
+
 int main(){
 
 	mTotal = 1000000000000000000000.0;
@@ -12,8 +14,6 @@ int main(){
 	conMax = mTotal;
 	conMin = 1.0;
 	tStep = (5.0/mSpeed)/10.0;
-
-	const int N = 10;
 
 	int i,j,k;
 
@@ -28,43 +28,70 @@ int main(){
 		}
 	}
 
-	room[0] = mTotal;
+	room[1+N+N*N] = mTotal;
 
-	while( 1 == 0 ){//(conMin/conMax) < 0.99{
-		time = time + tStep;
+	while ((conMin/conMax) < 0.001){
+		time = time + 1;//tStep;
 		//step(room [:][:][:]);
 		step(room);
 	}
 
 
-	printf("Last Value");//, room[N-1][N-1][N-1])
+	for (i=0; i<N; i++) {
+                for (j=0; j<N; j++){
+                        for (k=0; k<N; k++){
+				printf("%f ",room[i*N*N+j*N+k]);
+			}
+			printf("\n");
+		}
+		printf("\n");
+	}
 
+	printf("Time Simulated: %f\n", time);
+	printf("min concentration: %f\n", conMin);
+	printf("max concentration: %f\n", conMax);
+
+	free(room);
 }
 
-void step(double* alt){
+void step(double* room){
 
 	int i,j,k;
-	const int N = 10;
-
-	double dCon = 0;
+	
+	double dCon[6];
 
 	//double* room [];
 
-	for (i=0; i<N; i++) {
-                for (j=0; j<N; j++){
-			for (k=0; k<N; k++){
-				//dCon = (D*(room[i+1][j+1][k+1]-room[i][j][k])*tStep) / (hval*hval)
-				//room[i][] = room[i][j][k] + dCon
-				//room[i+1][j+1][k+1] = room[i+1][j+1][k+1] - dCon
+	conMin = mTotal;
+	conMax = 0;
 
-				/*if room[i][j][k] < conMin {
-					conMin = room[i][j][k]
-				} else if room[i][j][k] > conMax {
-					conMax = 0.0
+	for (i=1; i<N-1; i++) {
+                for (j=1; j<N-1; j++){
+			for (k=1; k<N-1; k++){
+				dCon[0] = (D*(room[i*N*N+j*N+k+1]-room[i*N*N+j*N+k])*tStep) / (hval*hval);
+				dCon[1] = (D*(room[i*N*N+j*N+k+N]-room[i*N*N+j*N+k])*tStep) / (hval*hval);
+				dCon[2] = (D*(room[i*N*N+j*N+k+(N*N)]-room[i*N*N+j*N+k])*tStep) / (hval*hval);
+				//dCon[3] = (D*(room[i*N*N+j*N+k+1]-room[i*N*N+j*N+k])*tStep) / (hval*hval);
+				//dCon[4] = (D*(room[i*N*N+j*N+k+1]-room[i*N*N+j*N+k])*tStep) / (hval*hval);
+				//dCon[5] = (D*(room[i*N*N+j*N+k+1]-room[i*N*N+j*N+k])*tStep) / (hval*hval);
+
+				room[i*N*N+j*N+k] = room[i*N*N+j*N+k] + dCon[0] + dCon[1] + dCon[3];
+				room[i*N*N+j*N+k+1] = room[i*N*N+j*N+k+1] - dCon[0];
+				room[i*N*N+j*N+k+N] = room[i*N*N+j*N+k+N] - dCon[1];
+				room[i*N*N+j*N+k+(N*N)] = room[i*N*N+j*N+k+(N*N)] - dCon[2];
+
+
+				if (room[i*N*N+j*N+k] < conMin) {
+					conMin = room[i*N*N+j*N+k];
+				}
+				if (room[i*N*N+j*N+k] > conMax) {
+					conMax = room[i*N*N+j*N+k];
 					//room[i][j][k]
-				}*/
+				}
 
-				dCon = 0.0;
+				//if(conMin < 1){conMin = 100000000000000000;}
+
+				dCon[0] = 0.0;
 			}
 		}
 	}
