@@ -44,8 +44,8 @@ int main(){
                 }
         }
 
+	printf("Total molecules starting: %f\n", mTotal);
 	printf("Total molecules left: %f\n", tot);
-	printf("Total molecules left: %f\n", mTotal);
 	printf("Time Simulated: %f\n", time);
 	printf("min concentration: %f\n", conMin);
 	printf("max concentration: %f\n", conMax);
