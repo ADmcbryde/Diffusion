@@ -8,7 +8,7 @@ var mTotal, time, mSpeed, D, rSize, rDiv, tStep, hval, conMax, conMin float64
 
 func main(){
 
-	const N int = 20
+	const N int = 10
 
 	mTotal = 1000000000000000000000.0
 	mSpeed = 250.0

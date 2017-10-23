@@ -3,7 +3,7 @@
 
 double mTotal, time, mSpeed, D, rSize, rDiv, tStep, hval, conMax, conMin;
 
-#define N 20
+#define N 10
 
 void step (double* room);
 

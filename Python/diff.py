@@ -98,8 +98,8 @@ for i in range(N):
 
 
 print "Total molecules starting", mTotal
-print "\nTotal molecules left", tot
-print "\nTime Simulated", time
-print "\nmix concentration", conMin
-print "\nmin concentration", conMax
+print "Total molecules left", tot
+print "Time Simulated", time
+print "max concentration", conMin
+print "min concentration", conMax
 
