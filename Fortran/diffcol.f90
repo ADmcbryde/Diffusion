@@ -66,9 +66,9 @@ do while ((conMin/conMax) .lt. 0.99)
         
         time = time + tStep
 
-        do i = 1, N
+        do k = 1, N
                 do j = 1, N
-                        do k = 1, N
+                        do i = 1, N
                                 if (k==N) then
                                         dCon(1) = 0
                                 else
