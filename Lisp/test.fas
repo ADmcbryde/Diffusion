@@ -1,8 +1,0 @@
-(|SYSTEM|::|VERSION| '(20080430.))
-#0Y_ #0Y |CHARSET|::|UTF-8|
-#Y(#:|1 1 (WRITE-LINE "Hello World")-1|
-   #17Y(00 00 00 00 00 00 00 00 20 01 DA 38 03 31 96 19 01) ("Hello World")
-   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
-#Y(#:|3 3 (WRITE-LINE "Learning Lisp")-2|
-   #17Y(00 00 00 00 00 00 00 00 20 01 DA 38 03 31 96 19 01) ("Learning Lisp")
-   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
