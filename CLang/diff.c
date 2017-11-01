@@ -5,7 +5,7 @@ double mTotal, time, mSpeed, D, rSize, rDiv, tStep, hval, conMax, conMin;
 
 int partition;
 
-#define N 30
+#define N 10
 
 void step (double* room);
 
@@ -18,7 +18,7 @@ int main(){
 	conMax = mTotal;
 	conMin = 1.0;
 	tStep = hval/mSpeed;
-	partition = 0;
+	partition = 1;
 	
 	int i,j,k;
 

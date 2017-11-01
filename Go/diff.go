@@ -6,6 +6,8 @@ import (
 
 var mTotal, time, mSpeed, D, rSize, rDiv, tStep, hval, conMax, conMin float64
 
+var partition bool
+
 func main(){
 
 	const N int = 10
@@ -18,6 +20,8 @@ func main(){
 	conMin = 1.0
 	tStep = hval/mSpeed
 
+	partition = true;
+
 	var tot float64 = 0.0
 
 	var room[N][N][N] float64
@@ -25,8 +29,11 @@ func main(){
 	for i:=0; i<N; i++ {
 		for j:=0; j<N; j++{
 			for k:=0; k<N; k++{
-				room[i][j][k] = 0.0//float32(i*N*N+j*N+k+1)
-					//fmt.Println(room[i][j][k])
+				if j==(N/2) && i>=(N/2) && partition{
+					room[i][j][k] = -1.0
+				}else{
+					room[i][j][k] = 0.0
+				}
 			}
 		}
 	}
@@ -44,49 +51,51 @@ func main(){
 	        for i:=0; i<N; i++ {
 	                for j:=0; j<N; j++{
 	                        for k:=0; k<N; k++{
-	                                if k==N-1 {
-	                                        dCon[0] = 0
-	                                }else{
-	                                        dCon[0] = (room[i][j][k]    -room[i][j][k+1]) * coefficient
-	                                        room[i][j][k] = room[i][j][k] - dCon[0]
-	                                        room[i][j][k+1]     = room[i][j][k+1] + dCon[0]
-	                                }
-	                                if j==N-1 {
-	                                        dCon[1] = 0
-	                                }else{
-	                                        dCon[1] = (room[i][j][k]    -room[i][j+1][k]) * coefficient
-	                                        room[i][j][k] = room[i][j][k] - dCon[1]
-	                                        room[i][j+1][k]     = room[i][j+1][k] + dCon[1]
-	                                }
-	                                if i==N-1 {
-	                                        dCon[2] = 0
-	                                }else{
-	                                        dCon[2] = (room[i][j][k]-room[i+1][j][k]) * coefficient
-	                                        room[i][j][k] = room[i][j][k] - dCon[2]
-	                                        room[i+1][j][k] = room[i+1][j][k] + dCon[2]
-	                                }
-	                                if k==0 {
-	                                        dCon[3] = 0
-	                                }else{
-	                                        dCon[3] = (room[i][j][k]    -room[i][j][k-1]) * coefficient
-	                                        room[i][j][k] = room[i][j][k] - dCon[3]
-	                                        room[i][j][k-1]     = room[i][j][k-1] + dCon[3]
-	                                }
-	                                if j==0 {
-	                                        dCon[4] = 0
-	                                }else{
-	                                        dCon[4] = (room[i][j][k]    -room[i][j-1][k]) * coefficient
-	                                        room[i][j][k] = room[i][j][k] - dCon[4]
-	                                        room[i][j-1][k]     = room[i][j-1][k] + dCon[4]
-	                                }
-	                                if i==0 {
-	                                        dCon[5] = 0
-	                                }else{
-	                                        dCon[5] = (room[i][j][k]-room[i-1][j][k]) * coefficient
-	                                        room[i][j][k] = room[i][j][k] - dCon[5]
-	                                        room[i-1][j][k] = room[i-1][j][k] + dCon[5]
-	                                }
-	                       }
+					if room[i][j][k] != -1{
+		                                if k==N-1 || room[i][j][k+1] == -1{
+		                                        dCon[0] = 0
+		                                }else{
+		                                        dCon[0] = (room[i][j][k]    -room[i][j][k+1]) * coefficient
+		                                        room[i][j][k] = room[i][j][k] - dCon[0]
+		                                        room[i][j][k+1]     = room[i][j][k+1] + dCon[0]
+		                                }
+		                                if j==N-1 || room[i][j+1][k] == -1{
+		                                        dCon[1] = 0
+		                                }else{
+		                                        dCon[1] = (room[i][j][k]    -room[i][j+1][k]) * coefficient
+		                                        room[i][j][k] = room[i][j][k] - dCon[1]
+		                                        room[i][j+1][k]     = room[i][j+1][k] + dCon[1]
+		                                }
+		                                if i==N-1 || room[i+1][j][k] == -1{
+		                                        dCon[2] = 0
+		                                }else{
+		                                        dCon[2] = (room[i][j][k]-room[i+1][j][k]) * coefficient
+		                                        room[i][j][k] = room[i][j][k] - dCon[2]
+		                                        room[i+1][j][k] = room[i+1][j][k] + dCon[2]
+		                                }
+		                                if k==0 || room[i][j][k-1] == -1{
+		                                        dCon[3] = 0
+		                                }else{
+		                                        dCon[3] = (room[i][j][k]    -room[i][j][k-1]) * coefficient
+		                                        room[i][j][k] = room[i][j][k] - dCon[3]
+		                                        room[i][j][k-1]     = room[i][j][k-1] + dCon[3]
+		                                }
+		                                if j==0 || room[i][j-1][k] == -1{
+		                                        dCon[4] = 0
+		                                }else{
+		                                        dCon[4] = (room[i][j][k]    -room[i][j-1][k]) * coefficient
+		                                        room[i][j][k] = room[i][j][k] - dCon[4]
+		                                        room[i][j-1][k]     = room[i][j-1][k] + dCon[4]
+		                                }
+		                                if i==0 || room[i-1][j][k] == -1{
+		                                        dCon[5] = 0
+		                                }else{
+		                                        dCon[5] = (room[i][j][k]-room[i-1][j][k]) * coefficient
+		                                        room[i][j][k] = room[i][j][k] - dCon[5]
+		                                        room[i-1][j][k] = room[i-1][j][k] + dCon[5]
+		                                }
+					}
+				}
 	                }
 		}
 
@@ -98,10 +107,10 @@ func main(){
 		for l:=0; l<N; l++ {
                         for m:=0; m<N; m++{
 	                        for n:=0; n<N; n++{
-					if room[l][m][n] < conMin {
+					if room[l][m][n] < conMin && room[l][m][n] != -1{
 						conMin = room[l][m][n]
 					}
-					if room[l][m][n] > conMax{
+					if room[l][m][n] > conMax && room[l][m][n] != -1{
 						conMax = room[l][m][n]
 					}
 				}

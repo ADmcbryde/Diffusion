@@ -1,0 +1,3 @@
+To compile and run the code:
+mcs diff.cs
+mono diff.exe

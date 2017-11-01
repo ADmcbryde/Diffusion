@@ -2,7 +2,7 @@ program diff
 
         implicit none
 
-        integer, parameter :: N = 10
+        integer, parameter :: N = 30
         
 
         real(kind=8) :: mTotal
