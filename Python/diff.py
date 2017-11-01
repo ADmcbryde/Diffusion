@@ -12,7 +12,7 @@ conMin = 1.0
 tStep = hval/mSpeed
 time = 0.0
 
-partition = False
+partition = True
 
 room = [[[0.0 for k in range(N)]for j in range(N)]for i in range(N)]
 
