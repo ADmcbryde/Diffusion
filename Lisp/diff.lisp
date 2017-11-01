@@ -1,8 +1,9 @@
+#!/usr/bin/sbcl --script
 (write-line "Hello World")
 
 (write-line "Learning Lisp")
 
-(defconstant N 6)
+(defconstant N 20)
 (defvar mTotal 1000000000000000000000.0)
 (defvar mSpeed 250.0)
 (defvar hval (/ 5.0 N)) 
@@ -17,7 +18,7 @@
 
 (print coefficient)
 
-(setf cube(make-array '(6 6 6)))
+(setf cube(make-array '(20 20 20)))
 (setf dCon(make-array '(6)))
 
 (dotimes (i N)
@@ -35,7 +36,7 @@
 
  	(setf totTime (+ totTime tStep))
 
-	(print "Here")
+	;(print "Here")
 
 	(dotimes (i N)
 	        (dotimes (j N)
@@ -93,7 +94,7 @@
 		)
 	)
 
-	(print "here")
+	;(print "here")
 
 	(setf conMax (aref cube 0 0 0))
 	(setf conMin (aref cube 0 0 0))
@@ -111,11 +112,11 @@
 		)
 	)
 
-	(print "before when")
+	;(print "before when")
 	
 	(when (> (/ conMin conMax) 0.99) (return 0))
 
-	(print "here again")
+	;(print "here again")
 )
 
 (dotimes (i N)
@@ -126,5 +127,8 @@
 	)
 )
 
+(print mTotal)
 (print tot)
 (print totTime)
+(print conMax)
+(print conMin)
