@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-N = 10
+N = 5
 
 mTotal = 1000000000000000000000.0
 tot = 0.0
@@ -19,7 +19,7 @@ room = [[[0.0 for k in range(N)]for j in range(N)]for i in range(N)]
 for i in range(N):
     for j in range(N):
         for k in range(N):
-            if (j==(N/2) and i>=(N/2) and partition):
+            if (j==(N/2)-1 and i>=(N/2)-1 and partition):
                 room[i][j][k] = -1.0
 
 
