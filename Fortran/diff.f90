@@ -41,7 +41,7 @@ program diff
         do i = 1, N
                 do j = 1, N
                         do k = 1, N
-                                if (j==((N/2)+1) .and. i>=((N/2)+1) .and. partition) then
+                                if (j==((N/2)) .and. i>=((N/2)) .and. partition) then
                                         room(i,j,k) = -1.0
                                 else
                                         room(i,j,k) = 0.0

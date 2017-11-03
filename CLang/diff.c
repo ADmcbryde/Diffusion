@@ -29,7 +29,7 @@ int main(){
 	for (i=0; i<N; i++) {
 		for (j=0; j<N; j++){
 			for (k=0; k<N; k++){
-				if(j == (N/2) && i >= (N/2) && partition){
+				if(j == (N/2)-1 && i >= (N/2)-1 && partition){
 					room[i*N*N+j*N+k] = -1.0;
 				}else{
 					room[i*N*N+j*N+k] = 0.0;

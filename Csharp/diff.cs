@@ -18,12 +18,12 @@ class Diffusion{
 		bool partition = true;
 
 		double[,,] room = new double[N,N,N];
-		double[] dCon = new double[6];
+		double[]dCon = new double[6];
 
 		for(int i = 0; i < N; i++){
 			for(int j = 0; j < N; j++){
 				for(int k = 0; k< N; k++){
-					if(j == (N/2) && i >= (N/2) && partition){
+					if(j == (N/2)-1 && i >= (N/2)-1 && partition){
 						room[i,j,k] = -1.0;
 					}else{
 						room[i,j,k] = 0.0;

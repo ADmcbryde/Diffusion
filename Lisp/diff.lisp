@@ -3,7 +3,7 @@
 
 (write-line "Learning Lisp")
 
-(defconstant N 20)
+(defconstant N 5)
 (defvar mTotal 1000000000000000000000.0)
 (defvar mSpeed 250.0)
 (defvar hval (/ 5.0 N)) 
@@ -16,17 +16,20 @@
 
 (defvar tot 0.0)
 
-(defvar partition nil)
+(defvar partition t)
+
+(defvar cube)
+(defvar dCon)
 
 (print coefficient)
 
-(setf cube(make-array '(20 20 20)))
+(setf cube(make-array '(5 5 5)))
 (setf dCon(make-array '(6)))
 
 (dotimes (i N)
 	(dotimes (j N)
 		(dotimes (k N)
-			(if (and partition )
+			(if (and partition (= j (/ N 2)) (>= i (/ N 2)) )
 				(setf (aref cube i j k) -1.0)
 				(setf (aref cube i j k) 0.0)
 			)
@@ -46,9 +49,9 @@
 	(dotimes (i N)
 	        (dotimes (j N)
 		        (dotimes (k N)
-				;(if t
-				  	;(progn
-					(if (= k (- N 1))
+				(if (/= (aref cube i j k) -1.0)
+				  	(progn
+					(if (or (= k (- N 1)) (= (aref cube i j (+ k 1)) -1.0) )
 						(setf (aref dCon 0) 0.0)
 						(progn
 						  	(setf (aref dCon 0) (* (- (aref cube i j k) (aref cube i j (+ k 1))) coefficient ) )
@@ -56,7 +59,7 @@
 							(setf (aref cube i j (+ k 1)) (+ (aref cube i j (+ k 1)) (aref dCon 0)))
 						)
 					)
-					(if (= j (- N 1))
+					(if (or (= j (- N 1)) (= (aref cube i (+ j 1) k) -1.0) )
 						(setf (aref dCon 1) 0.0)
 						(progn
 						  	(setf (aref dCon 1) (* (- (aref cube i j k) (aref cube i (+ j 1) k)) coefficient ) )
@@ -64,7 +67,7 @@
 							(setf (aref cube i (+ j 1) k) (+ (aref cube i (+ j 1) k) (aref dCon 1)))
 						)
 					)	
-					(if (= i (- N 1))
+					(if (or (= i (- N 1)) (= (aref cube (+ i 1) j k) -1.0) )
 						(setf (aref dCon 2) 0.0)
 						(progn
 						  	(setf (aref dCon 2) (* (- (aref cube i j k) (aref cube (+ i 1) j k)) coefficient ) )
@@ -72,7 +75,7 @@
 							(setf (aref cube (+ i 1) j k) (+ (aref cube (+ i 1) j k) (aref dCon 2)))
 						)
 					)
-					(if (= k 0)
+					(if (or (= k 0) (= (aref cube i j (- k 1)) -1.0) )
 						(setf (aref dCon 3) 0.0)
 						(progn
 						  	(setf (aref dCon 3) (* (- (aref cube i j k) (aref cube i j (- k 1))) coefficient ) )
@@ -80,7 +83,7 @@
 							(setf (aref cube i j (- k 1)) (+ (aref cube i j (- k 1)) (aref dCon 3)))
 						)
 					)
-					(if (= j 0)
+					(if (or (= j 0) (= (aref cube i (- j 1) k) -1.0) )
 						(setf (aref dCon 4) 0.0)
 						(progn
 						  	(setf (aref dCon 4) (* (- (aref cube i j k) (aref cube i (- j 1) k)) coefficient ) )
@@ -88,7 +91,7 @@
 							(setf (aref cube i (- j 1) k) (+ (aref cube i (- j 1) k) (aref dCon 4)))
 						)
 					)
-					(if (= i 0)
+					(if (or (= i 0) (= (aref cube (- i 1) j k) -1.0) )
 						(setf (aref dCon 5) 0.0)
 						(progn
 						  	(setf (aref dCon 5) (* (- (aref cube i j k) (aref cube (- i 1) j k)) coefficient ) )
@@ -96,8 +99,8 @@
 							(setf (aref cube (- i 1) j k) (+ (aref cube (- i 1) j k) (aref dCon 5)))
 						)
 					)
-					;)
-				;)
+					)
+				)
 			)
 		)
 	)
