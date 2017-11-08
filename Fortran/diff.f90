@@ -1,10 +1,17 @@
+! CSC 330
+! Assignment 2 - Diffusion
+!
+! Author: Devin McBryde
+
 program diff
 
+        !needed to suppress unwanted behavior in fortran
         implicit none
 
+        !Determines the number of divisions used n each dimension of the room
         integer, parameter :: N = 10
         
-
+        !The declaration of all necessary variables needed for the program 
         real(kind=8) :: mTotal
         real(kind=8) :: tot
         real(kind=8) :: mSpeed
@@ -18,11 +25,11 @@ program diff
         real(kind=8), dimension(N,N,N) :: room 
         real(kind=8), dimension(6) :: dCon
 
-        real :: coefficient
+        real         :: coefficient
 
         logical      :: partition
 
-        integer :: i,j,k
+        integer      :: i,j,k
         time = 0
 
 
@@ -46,11 +53,8 @@ program diff
                                 else
                                         room(i,j,k) = 0.0
                                 end if
-                                !print *, room(i,j,k)
                         end do
-                        !print *
                 end do
-                !print *
         end do
 
         print *, (-1 == -1.0)
@@ -58,7 +62,6 @@ program diff
         do i = 1, 6
                 dCon(i) = 0
         end do
-!go to 100
 
         room(1,1,1) = mTotal
         conMax = mTotal
@@ -127,7 +130,6 @@ do while ((conMin/conMax) .lt. 0.99)
                 end do
         end do
 
-!100 continue
         conMin = room(1,1,1)
         conMax = room(1,1,1)
 
@@ -148,15 +150,6 @@ do while ((conMin/conMax) .lt. 0.99)
         end do
 
         
-!        do i = 1, N
-!                do j = 1, N
-!                        do k = 1, N
-!                                 Print *, room(i,j,k), i, j, k
-!                        end do
-!                end do
-!                Print *
-!        end do
-!        Print *
 end do
         do i = 1, N
                 do j = 1, N
@@ -166,7 +159,6 @@ end do
                 end do
         end do
  
-        !print *, coefficient
         print *, "Total molecules starting:", mTotal
         print *, "Total molecules left:", tot
         print *, "Time Simulated:", time

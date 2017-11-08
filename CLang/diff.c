@@ -10,10 +10,10 @@
 #include<stdio.h>
 
 //declaration of the variables that define the system at the beginning
-//	and will e used throughout the program
+//	and will be used throughout the program
 double mTotal, time, mSpeed, D, rSize, rDiv, tStep, hval, conMax, conMin;
 
-//An int that will be used ina fashion similar to a boolean to
+//An int that will be used in a fashion similar to a boolean to
 //	control when the partition in activated
 int partition;
 
@@ -26,7 +26,7 @@ void step (double* room);
 
 int main(){
 
-	//Initializing all of the eessary varaibles for the simulation to start
+	//Initializing all of the necessary variables for the simulation to start
 	mTotal = 1000000000000000000000.0;
 	mSpeed = 250.0;
 	hval = 5.0/N;
