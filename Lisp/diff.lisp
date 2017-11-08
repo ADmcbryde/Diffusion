@@ -3,7 +3,7 @@
 
 (write-line "Learning Lisp")
 
-(defconstant N 5)
+(defconstant N 10)
 (defvar mTotal 1000000000000000000000.0)
 (defvar mSpeed 250.0)
 (defvar hval (/ 5.0 N)) 
@@ -15,21 +15,20 @@
 (defvar coefficient (/ (* tStep D) (* hval hval)))
 
 (defvar tot 0.0)
-
 (defvar partition t)
 
 (defvar cube)
 (defvar dCon)
 
-(print coefficient)
-
-(setf cube(make-array '(5 5 5)))
+(setf cube(make-array (list N N N)))
 (setf dCon(make-array '(6)))
+
+(if (= 3 (/ N 2)) (print 10))
 
 (dotimes (i N)
 	(dotimes (j N)
 		(dotimes (k N)
-			(if (and partition (= j (/ N 2)) (>= i (/ N 2)) )
+			(if (and partition (= j (- (/ N 2) 1)) (>= i (- (/ N 2) 1)) )
 				(setf (aref cube i j k) -1.0)
 				(setf (aref cube i j k) 0.0)
 			)
@@ -44,7 +43,6 @@
 
  	(setf totTime (+ totTime tStep))
 
-	;(print "Here")
 
 	(dotimes (i N)
 	        (dotimes (j N)
@@ -105,29 +103,26 @@
 		)
 	)
 
-	;(print "here")
-
 	(setf conMax (aref cube 0 0 0))
 	(setf conMin (aref cube 0 0 0))
 
 	(dotimes (i N)
 		(dotimes (j N)
 			(dotimes (k N)
-			  	(if (> (aref cube i j k) conMax)
+			  	(if (and (> (aref cube i j k) conMax) (/= (aref cube i j k) -1.0) )
 					(setf conMax (aref cube i j k))
 				)
-				(if (< (aref cube i j k) conMin)
+				(if (and (< (aref cube i j k) conMin) (/= (aref cube i j k) -1.0) )
 				  	(setf conMin (aref cube i j k))
 				)
 			)
 		)
 	)
 
-	;(print "before when")
-	
-	(when (> (/ conMin conMax) 0.99) (return 0))
 
-	;(print "here again")
+
+	(when (>= (/ conMin conMax) 0.99) (return 0))
+
 )
 
 (dotimes (i N)

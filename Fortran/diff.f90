@@ -22,17 +22,33 @@ program diff
         real(kind=8) :: tStep
         real(kind=8) :: time
 
+        !A 3 dimensional array that will operate as a rank 3 tensor used 
+        !       to represent the room 
         real(kind=8), dimension(N,N,N) :: room 
+        
+        !This array will store the different values of 
+        !       change in concentration between two cells
+        !       The name means concentration difference
         real(kind=8), dimension(6) :: dCon
 
+        !Every time we check to see the flux of gas between cells
+        !       we would also need to multiply several values,
+        !       slowing the speed of computation. By calculating the
+        !       value once we only need to perform a single
+        !       multiplication each time afterwards for each cell
+        !       instead of several
         real         :: coefficient
 
         logical      :: partition
 
+        !declaring the variables that will be used for looping through the room
         integer      :: i,j,k
+
+        !initalizing the time to zero
         time = 0
 
-
+        !initalizing the variables that describe the state of the room and
+        !       information about the molecules of gas
         mTotal = 1000000000000000000000.0
         mSpeed = 250.0
         hval   = 5.0/N
@@ -41,13 +57,22 @@ program diff
         conMin = 0.0
         tStep  = hval/mSpeed
 
+        !logical type variable that controls whether or not the program will 
+        !       be run with a partition in the room
         partition = .true.
 
         coefficient = (tStep*D)/(hval*hval)
 
+        !Following for loops will initialize the room tensor with 0 values 
+        !       when partioning is turned off, otherwise locations that 
+        !       represent the partion in the room will be initialized
+        !       to the value -1
         do i = 1, N
                 do j = 1, N
                         do k = 1, N
+                                !negative values are used when partition is true and will
+                                !       place them half way into the room (when j == (N/2)-1)
+                                !       and half way up (when i >= (N/2)-1)
                                 if (j==((N/2)) .and. i>=((N/2)) .and. partition) then
                                         room(i,j,k) = -1.0
                                 else
@@ -57,25 +82,39 @@ program diff
                 end do
         end do
 
-        print *, (-1 == -1.0)
-
+        !Initializing the dCon array
         do i = 1, 6
                 dCon(i) = 0
         end do
 
+        !This is where we put the gas in the room that will diffuse
+        !       This can be thought of as the top corner of the room
         room(1,1,1) = mTotal
+
+        !initializing these values so that the loop can start, some values would
+        !       prevent this
         conMax = mTotal
         conMin = 1.0
 
- 
+!We want the simulation to stop when the room has become sufficiently
+!       diffuse with the gas, thus we check if the ratio of lowest
+!       concentration to highest is less than 0.99, and when it is 
+!       higher we know the gas has diffused
 do while ((conMin/conMax) .lt. 0.99)
         
+        !every step of the program has the time tick by the tStep variable
+        !       tStep is based on qualities of the diffuse material and the room
         time = time + tStep
 
         do i = 1, N
                 do j = 1, N
                         do k = 1, N
-                                
+                               
+                                !calculate the difference in concentration from flux with each cube face
+                                !       The 6 faces of the cube are represented with different address values
+                                !       and an if is used to determine if it is safe to move molecules
+                                !       if a value = N-1  or 0 then we have hit a face of the cube and do not calculate 
+
                                 if (room(i,j,k) .ne. -1) then
                                        
                                         if (k==N .or. room(i,j,k+1) == -1) then
@@ -130,6 +169,8 @@ do while ((conMin/conMax) .lt. 0.99)
                 end do
         end do
 
+        !Setting up these variables with some set value from the room
+        !       to prime them for the max and min search
         conMin = room(1,1,1)
         conMax = room(1,1,1)
 
@@ -151,6 +192,9 @@ do while ((conMin/conMax) .lt. 0.99)
 
         
 end do
+
+        !To check for matter consistency we check the total amount of molecules in the
+        !       room after the smulation and output it with the starting value
         do i = 1, N
                 do j = 1, N
                         do k = 1, N
@@ -158,7 +202,13 @@ end do
                         end do
                 end do
         end do
- 
+
+        !output of the simulation detailing 5 vaules
+        !       How many molecules did we start with
+        !       How many molecules did we end with
+        !       The total amount of time it took for the room to become diffused
+        !       The minimum concentration in the room
+        !       the maximum concentration in the room
         print *, "Total molecules starting:", mTotal
         print *, "Total molecules left:", tot
         print *, "Time Simulated:", time
