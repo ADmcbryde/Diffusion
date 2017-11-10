@@ -76,7 +76,13 @@ func main(){
 	                for j:=0; j<N; j++{
 	                        for k:=0; k<N; k++{
 					if room[i][j][k] != -1{
-		                                if k==N-1 || room[i][j][k+1] == -1{
+
+						//calculate the difference in concentration from flux with each cube face
+						//	The 6 faces of the cube are represented with different address values
+						//	and an if is used to determine if it is safe to move molecules
+						//	if a value = N-1  or 0 then we have hit a face of the cube and do not calculate		                                
+
+						if k==N-1 || room[i][j][k+1] == -1{
 		                                        dCon[0] = 0
 		                                }else{
 		                                        dCon[0] = (room[i][j][k]    -room[i][j][k+1]) * coefficient
@@ -123,6 +129,9 @@ func main(){
 	                }
 		}
 
+		//after resetting the concentration values we then find the values of min and max
+			//	in order to tell when the loop shall end
+
 		conMin = room[0][0][0]
 		conMax = room[0][0][0]
 
@@ -142,6 +151,9 @@ func main(){
 
 	}
 
+	//Here we total the values stored in all of the cells to check
+		//	for any signifcant amount of lost or gained matter
+
 	for i:=0; i<N; i++ {
 	        for j:=0; j<N; j++{
 			for k:=0; k<N; k++{
@@ -150,6 +162,12 @@ func main(){
 		}
 	}
 
+	//output of the simulation detailing 5 vaules
+		//	How many molecules did we start with
+		//	How many molecules did we end with
+		//	The total amount of time it took for the room to become diffused
+		//	The minimum concentration in the room
+		//	the maximum concentration in the room
 	fmt.Printf("Total molecules starting: %f\n", mTotal);
         fmt.Printf("Total molecules left: %f\n", tot);
         fmt.Printf("Time Simulated: %f\n", time);

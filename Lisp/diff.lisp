@@ -1,8 +1,16 @@
+; CSC 330
+;Assignment 2 - Diffusion
+;
+;Author: Devin McBryde
+;
+;
+;
+
 #!/usr/bin/sbcl --script
-(write-line "Hello World")
 
-(write-line "Learning Lisp")
+;Initialization of all necessary variables for the programs
 
+;Determines the number of divisions used in each dimension of the room
 (defconstant N 10)
 (defvar mTotal 1000000000000000000000.0)
 (defvar mSpeed 250.0)
@@ -12,19 +20,35 @@
 (defvar conMin 1.0) 
 (defvar tStep (/ hval mSpeed))
 (defvar totTime 0.0)
+
+;Every time we check to see the flux of gas between cells
+;	we would also need to multiply several values,
+;	slowing the speed of computation. By calculating the
+;	value once we only need to perform a single
+;	multiplication each time afterwards for each cell
+;	instead of several
 (defvar coefficient (/ (* tStep D) (* hval hval)))
 
+;Will be used to sum up the total molecules left after the simulation
+;	Uesd to check for matter consistency
 (defvar tot 0.0)
 (defvar partition t)
 
+;Declaration of the cube in memory
+;	The variable is declared cube instead of room in Lisp
+;	since room is a keyword in the language
 (defvar cube)
 (defvar dCon)
 
+;Here we total the values stored in all of the cells to check
+;	for any signifcant amount of lost or gained matter
 (setf cube(make-array (list N N N)))
 (setf dCon(make-array '(6)))
 
-(if (= 3 (/ N 2)) (print 10))
-
+;Following for loops will initialize the room tensor with 0 values 
+	;	when partioning is turned off, otherwise locations that 
+	;	represent the partion in the room will be initialized
+	;	to the value -1
 (dotimes (i N)
 	(dotimes (j N)
 		(dotimes (k N)
@@ -36,9 +60,14 @@
 	)
 )
 
+;Provides the room with the gas material to be dispersed
+	;	to be understood as the "upper corner" of the room
 (setf (aref cube 0 0 0) mTotal)
 
-
+;We want the simulation to stop when the room has become sufficiently
+	;diffuse with the gas, thus we check if the ratio of lowest
+	;concentration to highest is greater than 0.99, and then we break
+	;the loop
 (loop
 
  	(setf totTime (+ totTime tStep))
@@ -120,11 +149,13 @@
 	)
 
 
-
+	
 	(when (>= (/ conMin conMax) 0.99) (return 0))
 
 )
 
+;Here we total the values stored in all of the cells to check
+	;for any signifcant amount of lost or gained matter
 (dotimes (i N)
   	(dotimes (j N)
 	  	(dotimes (k N)
@@ -133,6 +164,12 @@
 	)
 )
 
+;output of the simulation detailing 5 vaules
+	;How many molecules did we start with
+	;How many molecules did we end with
+	;The total amount of time it took for the room to become diffused
+	;The minimum concentration in the room
+	;the maximum concentration in the room
 (print mTotal)
 (print tot)
 (print totTime)

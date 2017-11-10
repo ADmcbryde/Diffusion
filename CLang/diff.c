@@ -17,14 +17,31 @@ double mTotal, time, mSpeed, D, rSize, rDiv, tStep, hval, conMax, conMin;
 //	control when the partition in activated
 int partition;
 
-//The number of divisions that will divide the room
-#define N 20
-
 //declaration of the step function that will perform a single iteration
 //	of the simulation
-void step (double* room);
+void step (double* room, int N);
 
 int main(){
+
+	printf("How many divisions do want for the room?\n");
+
+	int nTemp = 0;
+	scanf("%d",&nTemp);
+
+	const int N = nTemp;
+
+	printf("Do you want a partition to be used?(y/n)\n");
+
+	char pValue;
+	scanf("%c",&pValue);
+
+	printf("%c",pValue);
+
+	if(pValue == 'y'){
+		partition = 1;
+	}else{
+		partition = 0;
+	}
 
 	//Initializing all of the necessary variables for the simulation to start
 	mTotal = 1000000000000000000000.0;
@@ -34,7 +51,6 @@ int main(){
 	conMax = mTotal;
 	conMin = 1.0;
 	tStep = hval/mSpeed;
-	partition = 1;
 	
 	//declaration of for loop counter variables
 	int i,j,k;
@@ -76,7 +92,7 @@ int main(){
 	//	higher we know the gas has diffused
 	while((conMin/conMax) < 0.99){
 		time = time + tStep;
-		step(room);
+		step(room, N);
 	}
 
 	//Here we total the values stored in all of the cells to check
@@ -106,7 +122,7 @@ int main(){
 	free(room);
 }
 
-void step(double* room){
+void step(double* room, int N){
 
 	//The vaules used to iterate through the room array
 	//	using nested for loops
