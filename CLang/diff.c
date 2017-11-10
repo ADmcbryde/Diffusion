@@ -23,19 +23,17 @@ void step (double* room, int N);
 
 int main(){
 
-	printf("How many divisions do want for the room?\n");
-
 	int nTemp = 0;
+	char pValue;
+	printf("How many divisions do want for the room?\n");
 	scanf("%d",&nTemp);
+
+	printf("Do you want a partition to be used?(y/n)\n");
+	scanf(" %c",&pValue);
 
 	const int N = nTemp;
 
-	printf("Do you want a partition to be used?(y/n)\n");
-
-	char pValue;
-	scanf("%c",&pValue);
-
-	printf("%c",pValue);
+	//printf("%c",pValue);
 
 	if(pValue == 'y'){
 		partition = 1;
