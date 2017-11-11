@@ -9,7 +9,8 @@
 #!/usr/bin/python
 
 #This defines the number of divisions in our room
-N = 10
+
+N = input("Enter Number of Divisions in Room ")
 
 #Here we initialize all of the necessary values to simulate the room
 #   and its molecules
