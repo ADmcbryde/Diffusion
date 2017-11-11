@@ -10,8 +10,11 @@
 
 ;Initialization of all necessary variables for the programs
 
+(format t "Enter Number of Divisions in Room " #\linefeed)
+(terpri)
+
 ;Determines the number of divisions used in each dimension of the room
-(defconstant N 20)
+(defconstant N (read))
 (defvar mTotal 1000000000000000000000.0d0)
 (defvar mSpeed 250.0d0)
 (defvar hval (/ 5.0 N)) 
@@ -170,8 +173,13 @@
 	;The total amount of time it took for the room to become diffused
 	;The minimum concentration in the room
 	;the maximum concentration in the room
-(print mTotal)
-(print tot)
-(print totTime)
-(print conMax)
-(print conMin)
+(format t "Total molecules starting: ~w" mTotal)
+(terpri)
+(format t "Total molecules left: ~w" tot)
+(terpri)
+(format t "Time Simulated: ~w" totTime)
+(terpri)
+(format t "min concentration: ~w" conMin)
+(terpri)
+(format t "max concentration: ~w" conMax)
+(terpri)
