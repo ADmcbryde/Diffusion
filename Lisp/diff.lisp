@@ -1,3 +1,5 @@
+#!/usr/bin/sbcl --script
+
 ; CSC 330
 ;Assignment 2 - Diffusion
 ;
@@ -6,20 +8,18 @@
 ;
 ;
 
-#!/usr/bin/sbcl --script
-
 ;Initialization of all necessary variables for the programs
 
 ;Determines the number of divisions used in each dimension of the room
-(defconstant N 10)
-(defvar mTotal 1000000000000000000000.0)
-(defvar mSpeed 250.0)
+(defconstant N 20)
+(defvar mTotal 1000000000000000000000.0d0)
+(defvar mSpeed 250.0d0)
 (defvar hval (/ 5.0 N)) 
-(defvar D 0.175) 
+(defvar D 0.175d0) 
 (defvar conMax mTotal) 
 (defvar conMin 1.0) 
 (defvar tStep (/ hval mSpeed))
-(defvar totTime 0.0)
+(defvar totTime 0.0d0)
 
 ;Every time we check to see the flux of gas between cells
 ;	we would also need to multiply several values,
@@ -32,7 +32,7 @@
 ;Will be used to sum up the total molecules left after the simulation
 ;	Uesd to check for matter consistency
 (defvar tot 0.0)
-(defvar partition t)
+(defvar partition nil)
 
 ;Declaration of the cube in memory
 ;	The variable is declared cube instead of room in Lisp

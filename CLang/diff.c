@@ -31,7 +31,7 @@ int main(){
 	printf("Do you want a partition to be used?(y/n)\n");
 	scanf(" %c",&pValue);
 
-	const int N = nTemp;
+	int N = nTemp;
 
 	//printf("%c",pValue);
 

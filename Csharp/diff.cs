@@ -12,18 +12,20 @@ class Diffusion{
 	static public void Main(string[] args){
 
 
-		bool valid = false;
+		//Prompts for size of room	
+		Console.WriteLine("Enter Number of Divisions in Room");
 
-		while(!valid){
-			if(valid){
-				Console.WriteLine("STUFF");
-			}
-		}
+		string input = Console.ReadLine();
 
 		//The initialization of all necessary variables for the programs
 		
 		//Determines the number of divisions used in each dimension of the room
-		const int N = 10;
+		int N = 10;
+
+		//Try to parse input, if failure occurs uses N = 10
+		if(!Int32.TryParse(input,out N)){
+			N = 10;
+		}
 
 		//The number of molcules that will be placed in the room
 		double mTotal = 1000000000000000000000.0;
@@ -37,7 +39,7 @@ class Diffusion{
 		double time = 0.0;
 
 		//Will control when the partition is added to the simulation of the room
-		bool partition = true;
+		bool partition = false;
 
 		//A 3 dimensional array that will operate as a rank 3 tensor used 
 		//	to represent the room 

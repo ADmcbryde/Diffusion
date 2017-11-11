@@ -59,7 +59,7 @@ program diff
 
         !logical type variable that controls whether or not the program will 
         !       be run with a partition in the room
-        partition = .true.
+        partition = .false.
 
         coefficient = (tStep*D)/(hval*hval)
 
