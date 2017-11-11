@@ -11,6 +11,15 @@ class Diffusion{
 
 	static public void Main(string[] args){
 
+
+		bool valid = false;
+
+		while(!valid){
+			if(valid){
+				Console.WriteLine("STUFF");
+			}
+		}
+
 		//The initialization of all necessary variables for the programs
 		
 		//Determines the number of divisions used in each dimension of the room

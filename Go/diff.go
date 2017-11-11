@@ -10,6 +10,9 @@ package main
 
 import (
 	"fmt"
+	"strconv"
+	//"bufio"
+	//"os"
 )
 
 //declaration of the variables that define the system at the beginning
@@ -22,8 +25,16 @@ var partition bool
 
 func main(){
 
+	var s string
+	fmt.Printf("Enter Number of Room Divisions: ")
+	fmt.Scan(&s)
+
 	//Initializeing all of the necessary variables for the simulation to start 
-	const N int = 10
+	nTemp, err := strconv.Atoi(s)
+
+	if err == nil{}
+
+	var N int = nTemp
 
 	mTotal = 1000000000000000000000.0
 	mSpeed = 250.0
@@ -33,20 +44,22 @@ func main(){
 	conMin = 1.0
 	tStep = hval/mSpeed
 
-	partition = true;
+	partition = false;
 
 	var tot float64 = 0.0
 
 	//A 3 dimensional array that will operate as a rank 3 tensor used 
 	//	to represent the room 
-	var room[N][N][N] float64
+	room := make([][][]float64, N)
 
 	//Following for loops will initialize the room tensor with 0 values 
 	//	when partioning is turned off, otherwise locations that 
 	//	represent the partion in the room will be initialized
 	//	to the value -1
 	for i:=0; i<N; i++ {
+		room[i] = make([][]float64, N)
 		for j:=0; j<N; j++{
+			room[i][j] = make([]float64, N)
 			for k:=0; k<N; k++{
 				if j==(N/2)-1 && i>=(N/2)-1 && partition{
 					room[i][j][k] = -1.0
