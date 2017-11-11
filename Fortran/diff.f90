@@ -8,6 +8,7 @@ program diff
         !needed to suppress unwanted behavior in fortran
         implicit none
 
+
         !Determines the number of divisions used n each dimension of the room
         integer, parameter :: N = 10
         
