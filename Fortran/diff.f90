@@ -10,7 +10,7 @@ program diff
 
 
         !Determines the number of divisions used n each dimension of the room
-        integer, parameter :: N = 10
+        integer :: N
         
         !The declaration of all necessary variables needed for the program 
         real(kind=8) :: mTotal
@@ -25,8 +25,10 @@ program diff
 
         !A 3 dimensional array that will operate as a rank 3 tensor used 
         !       to represent the room 
-        real(kind=8), dimension(N,N,N) :: room 
-        
+
+	real(kind=8), dimension(:,:,:), allocatable :: room 
+
+
         !This array will store the different values of 
         !       change in concentration between two cells
         !       The name means concentration difference
@@ -44,6 +46,11 @@ program diff
 
         !declaring the variables that will be used for looping through the room
         integer      :: i,j,k
+
+        print*, "Enter Number of Divisions for Room "
+        read*, N
+
+        allocate( room(N,N,N))
 
         !initalizing the time to zero
         time = 0
