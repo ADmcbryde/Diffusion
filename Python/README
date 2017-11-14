@@ -1,0 +1,4 @@
+To run:
+	python diff.py
+To use partition change:
+	partition = True

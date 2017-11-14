@@ -1,0 +1,4 @@
+To run:
+	./diff.lisp
+To use partition change:
+	(defvar partition t)

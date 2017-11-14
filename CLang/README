@@ -1,2 +1,4 @@
 To compile run:
 	gcc diff.c -o diff
+To use partition:
+	Answer prompt with 'y'

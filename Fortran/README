@@ -1,0 +1,5 @@
+To compile run:
+	gfortran diff.f90
+	./a.out
+To use partition change:
+	partition = .true.

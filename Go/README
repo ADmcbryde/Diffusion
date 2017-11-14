@@ -1,2 +1,5 @@
 To run type:
-	fo run diff.go
+	go run diff.go
+
+To use partition change:
+	partition = true
