@@ -23,6 +23,8 @@ program diff
         real(kind=8) :: tStep
         real(kind=8) :: time
 
+        real         :: start, endTime
+
         !A 3 dimensional array that will operate as a rank 3 tensor used 
         !       to represent the room 
 
@@ -51,6 +53,8 @@ program diff
         read*, N
 
         allocate( room(N,N,N))
+
+        call cpu_time(start)
 
         !initalizing the time to zero
         time = 0
@@ -211,6 +215,8 @@ end do
                 end do
         end do
 
+        call cpu_time(endTime)
+
         !output of the simulation detailing 5 vaules
         !       How many molecules did we start with
         !       How many molecules did we end with
@@ -222,7 +228,7 @@ end do
         print *, "Time Simulated:", time
         print *, "min concentration:", conMin
         print *, "max concentration:", conMax
-
+        print *, "Wall time:", endTime-start
 
 
 end program diff

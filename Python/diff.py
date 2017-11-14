@@ -8,9 +8,15 @@
 
 #!/usr/bin/python
 
+import time
+
 #This defines the number of divisions in our room
 
 N = input("Enter Number of Divisions in Room ")
+
+#start time of the program is recorded here
+
+start = time.clock()
 
 #Here we initialize all of the necessary values to simulate the room
 #   and its molecules
@@ -22,11 +28,11 @@ D = 0.175
 conMax = mTotal
 conMin = 1.0
 tStep = hval/mSpeed
-time = 0.0
+currTime = 0.0
 
 #This controls whether or not a partition is loaded when the
 #   room is initialized
-partition = True
+partition = False
 
 #A 3 dimensional array that will operate as a rank 3 tensor used 
 #	to represent the room 
@@ -63,7 +69,7 @@ coefficient = ((tStep*D) / (hval*hval))
     #higher we know the gas has diffused
 while (conMin/conMax < 0.99):
 
-    time += tStep
+    currTime += tStep
 
     for i in range(N):
         for j in range(N):
@@ -148,6 +154,8 @@ for i in range(N):
             tot+= room[i][j][k]
 
 
+end = time.clock()
+timeDiff = end - start
 #output of the simulation detailing 5 vaules
     #How many molecules did we start with
     #How many molecules did we end with
@@ -157,7 +165,7 @@ for i in range(N):
 
 print "Total molecules starting", mTotal
 print "Total molecules left", tot
-print "Time Simulated", time
+print "Time Simulated", currTime
 print "max concentration", conMin
 print "min concentration", conMax
-
+print "Wall time", timeDiff

@@ -8,10 +8,11 @@
 
 #include<stdlib.h>
 #include<stdio.h>
+#include<time.h>
 
 //declaration of the variables that define the system at the beginning
 //	and will be used throughout the program
-double mTotal, time, mSpeed, D, rSize, rDiv, tStep, hval, conMax, conMin;
+double mTotal, currTime, mSpeed, D, rSize, rDiv, tStep, hval, conMax, conMin;
 
 //An int that will be used in a fashion similar to a boolean to
 //	control when the partition in activated
@@ -40,6 +41,12 @@ int main(){
 	}else{
 		partition = 0;
 	}
+
+	//cal for time objects that will tell us wall time at end of program
+	time_t start;
+	time_t end;
+	//Give start the time of program starting execution
+	start = time(NULL);
 
 	//Initializing all of the necessary variables for the simulation to start
 	mTotal = 1000000000000000000000.0;
@@ -89,7 +96,7 @@ int main(){
 	//	concentration to highest is less than 0.99, and when it is 
 	//	higher we know the gas has diffused
 	while((conMin/conMax) < 0.99){
-		time = time + tStep;
+		currTime = currTime + tStep;
 		step(room, N);
 	}
 
@@ -110,12 +117,15 @@ int main(){
 	//	The total amount of time it took for the room to become diffused
 	//	The minimum concentration in the room
 	//	the maximum concentration in the room
+	
+	end = time(NULL);
+	double seconds = difftime(end,start);
 	printf("Total molecules starting: %f\n", mTotal);
 	printf("Total molecules left: %f\n", tot);
-	printf("Time Simulated: %f\n", time);
+	printf("Time Simulated: %f\n", currTime);
 	printf("min concentration: %f\n", conMin);
 	printf("max concentration: %f\n", conMax);
-
+	printf("Wall time: %f\n", seconds);
 	//free the memory held by the array
 	free(room);
 }

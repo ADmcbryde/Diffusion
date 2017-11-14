@@ -11,19 +11,21 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"time"
 	//"bufio"
 	//"os"
 )
 
 //declaration of the variables that define the system at the beginning
 //	and will be used throughout the program
-var mTotal, time, mSpeed, D, rSize, rDiv, tStep, hval, conMax, conMin float64
+var mTotal, currTime, mSpeed, D, rSize, rDiv, tStep, hval, conMax, conMin float64
 
 //This value will control whether or not a partition will present
 //	int the room
 var partition bool
 
 func main(){
+
 
 	var s string
 	fmt.Printf("Enter Number of Room Divisions: ")
@@ -35,6 +37,8 @@ func main(){
 	if err == nil{}
 
 	var N int = nTemp
+
+	start := time.Now()
 
 	mTotal = 1000000000000000000000.0
 	mSpeed = 250.0
@@ -80,7 +84,7 @@ func main(){
 	//	concentration to highest is less than 0.99, and when it is 
 	//	higher we know the gas has diffused
 	for (conMin/conMax) < 0.99 {
-		time = time + tStep
+		currTime = currTime + tStep
 		dCon := [6]float64{0.0,0.0,0.0,0.0,0.0,0.0}
 
 	        var coefficient float64 = ((D*tStep) / (hval*hval))
@@ -175,6 +179,8 @@ func main(){
 		}
 	}
 
+	end := time.Now();
+	timeDiff := end.Sub(start)
 	//output of the simulation detailing 5 vaules
 		//	How many molecules did we start with
 		//	How many molecules did we end with
@@ -183,8 +189,9 @@ func main(){
 		//	the maximum concentration in the room
 	fmt.Printf("Total molecules starting: %f\n", mTotal);
         fmt.Printf("Total molecules left: %f\n", tot);
-        fmt.Printf("Time Simulated: %f\n", time);
+        fmt.Printf("Time Simulated: %f\n", currTime);
         fmt.Printf("min concentration: %f\n", conMin);
         fmt.Printf("max concentration: %f\n", conMax);
+	fmt.Printf("Wall time: %d Milliseconds\n", timeDiff/1000000)
 
 }

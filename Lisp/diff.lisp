@@ -13,6 +13,8 @@
 (format t "Enter Number of Divisions in Room " #\linefeed)
 (terpri)
 
+(defvar start (get-internal-run-time))
+
 ;Determines the number of divisions used in each dimension of the room
 (defconstant N (read))
 (defvar mTotal 1000000000000000000000.0d0)
@@ -167,6 +169,8 @@
 	)
 )
 
+(defvar endTime (get-internal-run-time))
+
 ;output of the simulation detailing 5 vaules
 	;How many molecules did we start with
 	;How many molecules did we end with
@@ -182,4 +186,6 @@
 (format t "min concentration: ~w" conMin)
 (terpri)
 (format t "max concentration: ~w" conMax)
+(terpri)
+(format t "Wall time ~w milliseconds" (- endTime start) )
 (terpri)

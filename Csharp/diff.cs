@@ -27,6 +27,9 @@ class Diffusion{
 			N = 10;
 		}
 
+		DateTime start = System.DateTime.Now;
+
+
 		//The number of molcules that will be placed in the room
 		double mTotal = 1000000000000000000000.0;
 		double tot = 0.0;
@@ -173,6 +176,10 @@ class Diffusion{
 			}
 		}
 
+		DateTime end = System.DateTime.Now;
+		TimeSpan diff = end.Subtract(start);
+
+
 		//output of the simulation detailing 5 vaules
 		//	How many molecules did we start with
 		//	How many molecules did we end with
@@ -184,7 +191,7 @@ class Diffusion{
 		Console.WriteLine("Time Simulated: " + time);
 		Console.WriteLine("min concentration: " + conMin);
 		Console.WriteLine("max concentration: " + conMax);
-
+		Console.WriteLine("Wall time: " + diff.Seconds + " Seconds");
 
 	}
 
